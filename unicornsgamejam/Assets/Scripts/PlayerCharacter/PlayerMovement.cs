@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private float timeToRemberGrounded = 0.125f;
     [SerializeField] [Range(0.0f, 1.0f)]
     private float relativeMinJumpDuration = 0.33f;
+    private TileMapManager mapManager;
 
     [Header("References")]
     [SerializeField]
@@ -56,9 +57,11 @@ public class PlayerMovement : MonoBehaviour
         controls.Gameplay.Jump.performed += context => SetEarlyJumpTimer();
         controls.Gameplay.Jump.canceled += context => CancelJump();
 
-        controls.Gameplay.Bury.performed += ContextMenu => Burry();
+        controls.Gameplay.Bury.performed += context => Burry();
 
-        controls.Gameplay.Unearth.performed += ContextMenu => Unearth();
+        controls.Gameplay.Unearth.performed += context => Unearth();
+
+        mapManager = FindObjectOfType<TileMapManager>();
 
     }
     private void Start()
@@ -78,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) Jump();
 
         Flip();
+
     }
 
     private void Run()
@@ -138,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
             //animation
             animator.SetBool("Falling", true);
-        }
+        } 
     }
     private void SetEarlyJumpTimer()
     {
@@ -170,10 +174,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Burry(){
-        if (!isBuried)
+        if (grounded && !isBuried)
         {
             isBuried = true;
+            rootGround(this.transform.position - new Vector3(0, 1, 0));
         }
+        
     }
 
     private void Unearth(){
@@ -182,6 +188,11 @@ public class PlayerMovement : MonoBehaviour
             isBuried = false;
         }
         
+    }
+
+    private void rootGround(Vector3 position)
+    {
+        mapManager.rootGround(position);
     }
 
     private void OnEnable()

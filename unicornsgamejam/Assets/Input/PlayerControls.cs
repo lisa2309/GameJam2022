@@ -57,6 +57,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d47ff0f-19e0-4a98-b42e-e2d701991b4d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -136,6 +144,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Unearth"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69593235-2621-4c1c-be5e-655c7e73c849"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -155,6 +174,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
         m_Gameplay_Bury = m_Gameplay.FindAction("Bury", throwIfNotFound: true);
         m_Gameplay_Unearth = m_Gameplay.FindAction("Unearth", throwIfNotFound: true);
+        m_Gameplay_Click = m_Gameplay.FindAction("Click", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -209,6 +229,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Shoot;
     private readonly InputAction m_Gameplay_Bury;
     private readonly InputAction m_Gameplay_Unearth;
+    private readonly InputAction m_Gameplay_Click;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -218,6 +239,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
         public InputAction @Bury => m_Wrapper.m_Gameplay_Bury;
         public InputAction @Unearth => m_Wrapper.m_Gameplay_Unearth;
+        public InputAction @Click => m_Wrapper.m_Gameplay_Click;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -242,6 +264,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Unearth.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUnearth;
                 @Unearth.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUnearth;
                 @Unearth.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUnearth;
+                @Click.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnClick;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -261,6 +286,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Unearth.started += instance.OnUnearth;
                 @Unearth.performed += instance.OnUnearth;
                 @Unearth.canceled += instance.OnUnearth;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
             }
         }
     }
@@ -281,5 +309,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnBury(InputAction.CallbackContext context);
         void OnUnearth(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
     }
 }
