@@ -41,6 +41,22 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Bury"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b61a910-6688-4afd-8515-604892762230"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Unearth"",
+                    ""type"": ""Button"",
+                    ""id"": ""e98860ef-f4b6-479e-abc2-34b35cf1bd10"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -98,6 +114,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a78f151c-7d7e-4ce2-a46c-fbd1de574c7d"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bury"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f6890ee-0b31-48ec-96b1-575ea421ecfb"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Unearth"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -115,6 +153,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
+        m_Gameplay_Bury = m_Gameplay.FindAction("Bury", throwIfNotFound: true);
+        m_Gameplay_Unearth = m_Gameplay.FindAction("Unearth", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -167,6 +207,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Move;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Shoot;
+    private readonly InputAction m_Gameplay_Bury;
+    private readonly InputAction m_Gameplay_Unearth;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -174,6 +216,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
+        public InputAction @Bury => m_Wrapper.m_Gameplay_Bury;
+        public InputAction @Unearth => m_Wrapper.m_Gameplay_Unearth;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -192,6 +236,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Shoot.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
+                @Bury.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBury;
+                @Bury.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBury;
+                @Bury.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBury;
+                @Unearth.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUnearth;
+                @Unearth.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUnearth;
+                @Unearth.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUnearth;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -205,6 +255,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Bury.started += instance.OnBury;
+                @Bury.performed += instance.OnBury;
+                @Bury.canceled += instance.OnBury;
+                @Unearth.started += instance.OnUnearth;
+                @Unearth.performed += instance.OnUnearth;
+                @Unearth.canceled += instance.OnUnearth;
             }
         }
     }
@@ -223,5 +279,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnBury(InputAction.CallbackContext context);
+        void OnUnearth(InputAction.CallbackContext context);
     }
 }

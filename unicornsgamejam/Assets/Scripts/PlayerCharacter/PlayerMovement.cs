@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private float jumpTimer;
     private bool lowJump = false;
     private float runSpeedModifier = 1.0f;
+    private bool isBuried = false;
 
     //config
     [Header("Run Parameters")]
@@ -54,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
 
         controls.Gameplay.Jump.performed += context => SetEarlyJumpTimer();
         controls.Gameplay.Jump.canceled += context => CancelJump();
+
+        controls.Gameplay.Bury.performed += ContextMenu => Burry();
+
+        controls.Gameplay.Unearth.performed += ContextMenu => Unearth();
+
     }
     private void Start()
     {
@@ -76,11 +82,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Run()
     {
-        float horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime;
-        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+        float horizontalVelocity = 0;
 
+        if (!isBuried)
+        {
+            horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime;
+            rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+        }
+        
         //animation
-        animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
+            animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
     }
     public void SetRunSpeedModifier(float modifier)
     {
@@ -156,6 +167,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.velocity.x > 0.0f) transform.eulerAngles = Vector3.zero;
         else if (rb.velocity.x < 0.0f) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
+    }
+
+    private void Burry(){
+        if (!isBuried)
+        {
+            isBuried = true;
+        }
+    }
+
+    private void Unearth(){
+        if (isBuried)
+        {
+            isBuried = false;
+        }
+        
     }
 
     private void OnEnable()
