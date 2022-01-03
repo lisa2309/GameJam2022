@@ -29,9 +29,14 @@ public class TileMapManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        
+    public float getMovementMultiplikator(Vector2 position){
+        Vector3Int gridPosition = map.WorldToCell(position);
+        TileBase tile = map.GetTile(gridPosition);
+        if (tile == null)
+        {
+            return 1f;
+        }
+        return dataFromTiles[tile].movementMultiplicator;
     }
 
     public void rootGround(Vector2 position)
@@ -54,5 +59,4 @@ public class TileMapManager : MonoBehaviour
             map.SetTile(gridPosition, mycelliumTile);
         }
     }
-    
 }

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6169b381b8ec4ea45ad6a5fd35be9bc4, type: 3}
   m_Name: MycelliumTile
   m_EditorClassIdentifier: 
-  tiles: []
+  tiles:
+  - {fileID: 11400000, guid: 66336c866acf42a418866b8acb0a8984, type: 2}
   isRootable: 0
+  movementMultiplicator: 1

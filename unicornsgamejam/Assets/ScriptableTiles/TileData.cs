@@ -9,5 +9,6 @@ public class TileData : ScriptableObject
     
     public TileBase[] tiles;
     public bool isRootable;
+    public float movementMultiplicator;
     
 }

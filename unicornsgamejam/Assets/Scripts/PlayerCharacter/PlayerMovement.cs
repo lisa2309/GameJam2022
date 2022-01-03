@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isBuried)
         {
-            horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime;
+            horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime * mapManager.getMovementMultiplikator(transform.position - new Vector3(0, 1, 0));
             rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
         }
         
