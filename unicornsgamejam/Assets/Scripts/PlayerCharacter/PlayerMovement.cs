@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private float jumpTimer;
     private bool lowJump = false;
     private float runSpeedModifier = 1.0f;
+    private bool isBuried = false;
 
     //config
     [Header("Run Parameters")]
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private float timeToRemberGrounded = 0.125f;
     [SerializeField] [Range(0.0f, 1.0f)]
     private float relativeMinJumpDuration = 0.33f;
+    private TileMapManager mapManager;
 
     [Header("References")]
     [SerializeField]
@@ -54,6 +56,13 @@ public class PlayerMovement : MonoBehaviour
 
         controls.Gameplay.Jump.performed += context => SetEarlyJumpTimer();
         controls.Gameplay.Jump.canceled += context => CancelJump();
+
+        controls.Gameplay.Bury.performed += context => Burry();
+
+        controls.Gameplay.Unearth.performed += context => Unearth();
+
+        mapManager = FindObjectOfType<TileMapManager>();
+
     }
     private void Start()
     {
@@ -72,15 +81,21 @@ public class PlayerMovement : MonoBehaviour
         if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) Jump();
 
         Flip();
+
     }
 
     private void Run()
     {
-        float horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime;
-        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+        float horizontalVelocity = 0;
 
+        if (!isBuried)
+        {
+            horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime * mapManager.getMovementMultiplikator(transform.position - new Vector3(0, 1, 0));
+            rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+        }
+        
         //animation
-        animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
+            animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
     }
     public void SetRunSpeedModifier(float modifier)
     {
@@ -127,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
             //animation
             animator.SetBool("Falling", true);
-        }
+        } 
     }
     private void SetEarlyJumpTimer()
     {
@@ -156,6 +171,28 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.velocity.x > 0.0f) transform.eulerAngles = Vector3.zero;
         else if (rb.velocity.x < 0.0f) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
+    }
+
+    private void Burry(){
+        if (grounded && !isBuried)
+        {
+            isBuried = true;
+            rootGround(this.transform.position - new Vector3(0, 1, 0));
+        }
+        
+    }
+
+    private void Unearth(){
+        if (isBuried)
+        {
+            isBuried = false;
+        }
+        
+    }
+
+    private void rootGround(Vector3 position)
+    {
+        mapManager.rootGround(position);
     }
 
     private void OnEnable()
