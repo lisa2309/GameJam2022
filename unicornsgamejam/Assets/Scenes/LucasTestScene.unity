@@ -1404,7 +1404,7 @@ PrefabInstance:
     - target: {fileID: 7361766372766121631, guid: 0b6c586cece674f40a42e7c5827d2773, type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 1864678165}
+      objectReference: {fileID: 717575335}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b6c586cece674f40a42e7c5827d2773, type: 3}
 --- !u!1001 &1515677407
@@ -1666,8 +1666,3 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!4 &1864678165 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1602059106288104543, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
-  m_PrefabInstance: {fileID: 1515677407}
-  m_PrefabAsset: {fileID: 0}
