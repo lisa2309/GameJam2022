@@ -340,6 +340,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3134688772915260421, guid: a964aa1509bd3124b87b41d7839cd5c9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3134688772915260921, guid: a964aa1509bd3124b87b41d7839cd5c9, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[6].x
       value: -2
@@ -844,9 +848,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1602059104979523113, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602059105999003823, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1602059106288104512, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602059106288104512, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602059106288104538, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 6074569957490099820, guid: 9dbabf12fa6a9eb4dbb400c6360cea18, type: 3}
+    - target: {fileID: 1602059106288104540, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
+      propertyPath: walkableLayers.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602059106288104541, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1602059106288104543, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
       propertyPath: m_RootOrder
@@ -891,6 +919,10 @@ PrefabInstance:
     - target: {fileID: 1602059106288104543, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602059106433673436, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
@@ -973,7 +1005,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689472926}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1920.031, y: -1075.658, z: -10}
+  m_LocalPosition: {x: -241.531, y: -187.158, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 470418649}

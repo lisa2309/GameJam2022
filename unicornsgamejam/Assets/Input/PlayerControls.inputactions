@@ -56,8 +56,16 @@
                 {
                     "name": "Pause",
                     "type": "Button",
-                    "id": "11888b88-b755-46ab-b5f2-3a694d6cca21",
+                    "id": "3fdf5295-c3c7-4cdc-a3f4-fb39beaa37fc",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Mouse",
+                    "type": "PassThrough",
+                    "id": "e81a5389-7a42-4d4e-9df8-75d69f3493ee",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -153,12 +161,23 @@
                 },
                 {
                     "name": "",
-                    "id": "8d911327-9895-4bf9-98ba-7ca006930f7e",
+                    "id": "8bb8c274-e870-4073-9c78-ed63dcc4815a",
                     "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a06d7e17-2c76-4017-a34d-3d8a55e68d02",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
