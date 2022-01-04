@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles:
   - {fileID: 11400000, guid: cca4d872bbf138a42bf3a3d0e52f9e24, type: 2}
+  wasUpdatedThisFrame: 0
   isRootable: 0
-  movementMultiplicator: 0
+  movementMultiplicator: 1
