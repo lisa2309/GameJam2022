@@ -84,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
         CheckGrounded();
         ApplyFallingGravityScale();
         UpdateTimers();
-        Debug.Log(undergroundMovementTimer);
         if (!isBuried)
         {
             Run();
@@ -137,13 +136,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 getTargetPosition(string direction)
     {
         undergroundMovementTimer = 0.2f;
-         var nextPosition = transform.position;       
+        var nextPosition = transform.position;
+
         switch (direction)
         {
             case "up":
                 for (int i = 1; i <= undergroundJumpDistance + 1; i++)
                 {
-                    nextPosition = nextPosition + new Vector3(0 , i);
+                    nextPosition = nextPosition + new Vector3(0 , 1);
                     if(mapManager.isMycelliumInPosition(nextPosition))
                     {
                     Debug.Log("Position: " + nextPosition+ "Current: " + transform.position);
@@ -163,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
             case "down":
                 for (int i = 1; i <= undergroundJumpDistance + 1; i++)
                 {
-                    nextPosition += new Vector3(0 , -i);
+                    nextPosition += new Vector3(0 , -1);
                     if(!mapManager.isMycelliumInPosition(nextPosition))
                     {
                     Debug.Log("Position: " + nextPosition+ "Current: " + transform.position);
@@ -182,10 +182,10 @@ public class PlayerMovement : MonoBehaviour
                 return transform.position;
 
             case "left":
-                for (int i = 1; i <= undergroundJumpDistance + 1; i++)
+                for (int i = 1; i < undergroundJumpDistance + 1; i++)
                 {
-                    Debug.Log(mapManager.isMycelliumInPosition(nextPosition));
-                    nextPosition = nextPosition + new Vector3(-i , 0);
+                    nextPosition = nextPosition + new Vector3(-1 , 0);
+                    print(i + " : " + mapManager.isMycelliumInPosition(nextPosition) + " on " + nextPosition);
                     if(!mapManager.isMycelliumInPosition(nextPosition))
                     {
                     Debug.Log("Position: " + nextPosition+ "Current: " + transform.position);
@@ -198,14 +198,14 @@ public class PlayerMovement : MonoBehaviour
                         {
                             return transform.position;
                         }
-                    }*/
+                    }
                 }
                 return transform.position;
 
             case "right":
                 for (int i = 1; i <= undergroundJumpDistance + 1; i++)
                 {
-                    nextPosition = nextPosition + new Vector3(i , 0);
+                    nextPosition = nextPosition + new Vector3(1 , 0);
                     if(!mapManager.isMycelliumInPosition(nextPosition))
                     {
                     Debug.Log("Position: " + nextPosition+ "Current: " + transform.position);
