@@ -8,6 +8,7 @@ public class TileData : ScriptableObject
 {
     
     public TileBase[] tiles;
+    public bool isMycellium;
     public bool isRootable;
     public float movementMultiplicator;
     
