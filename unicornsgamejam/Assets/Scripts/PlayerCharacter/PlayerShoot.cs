@@ -26,6 +26,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private Transform shootPoint;
     private Vector2 inputMouse;
+    public GameObject player;
 
     private void Awake()
     {
@@ -38,6 +39,8 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("Mouse: " + inputMouse);
+        Debug.Log("Player: " + transform.position);
         Vector3 mousePos = inputMouse;
         Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
         mousePos.x = mousePos.x - shootPos.x;
@@ -55,6 +58,7 @@ public class PlayerShoot : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         movement = GetComponent<PlayerMovement>();
+        player = GameObject.Find("PlayerCharacter");
     }
 
     private void StartShooting()
