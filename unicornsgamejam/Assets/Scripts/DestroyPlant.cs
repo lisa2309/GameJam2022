@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class DestroyPlant : MonoBehaviour
 {
-    private SpriteRenderer renderer;
+    new private SpriteRenderer renderer;
+    private TileMapManager manager;
     public float fadeSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        renderer = GetComponent<SpriteRenderer> ();
+        manager = GameObject.Find("TileMapManager").GetComponent<TileMapManager>();
     }
-    
+
+    private void Update()
+    {
+        //Check if Rooted Tile is around
+        if (manager.isRootedTileAround(transform.position))
+            killPlant();
+    }
+
     IEnumerator FadeOut()
     {
         for (float f = 1f; f >= fadeSpeed; f -= fadeSpeed)
@@ -24,11 +33,6 @@ public class DestroyPlant : MonoBehaviour
             yield return new WaitForSeconds(fadeSpeed);
         }
         Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        killPlant();
     }
 
     public void killPlant()

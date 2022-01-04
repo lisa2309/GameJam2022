@@ -85,17 +85,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Run()
-    {  
-        float horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime;
-        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
+    {
+        //float horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime;
+        //rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
 
-        /*float horizontalVelocity = 0;
+        float horizontalVelocity = 0;
 
         if (!isBuried)
         {
             horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime * mapManager.getMovementMultiplikator(transform.position - new Vector3(0, 1, 0));
             rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
-        }*/
+        }
         
         //animation
             animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
