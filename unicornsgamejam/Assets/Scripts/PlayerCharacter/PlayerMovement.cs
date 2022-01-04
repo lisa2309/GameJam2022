@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private bool lowJump = false;
     private float runSpeedModifier = 1.0f;
     private bool isBuried = false;
+    
 
     //config
     [Header("Run Parameters")]

@@ -135,6 +135,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3134688772915260421, guid: a964aa1509bd3124b87b41d7839cd5c9, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3134688772915260921, guid: a964aa1509bd3124b87b41d7839cd5c9, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
       value: 2
@@ -1418,6 +1422,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 1602059106288104538, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 6074569957490099820, guid: 9dbabf12fa6a9eb4dbb400c6360cea18, type: 3}
     - target: {fileID: 1602059106288104543, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
       propertyPath: m_RootOrder
       value: 3
