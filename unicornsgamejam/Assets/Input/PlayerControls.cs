@@ -73,6 +73,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Mouse"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e81a5389-7a42-4d4e-9df8-75d69f3493ee"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -174,6 +182,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a06d7e17-2c76-4017-a34d-3d8a55e68d02"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -195,6 +214,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Unearth = m_Gameplay.FindAction("Unearth", throwIfNotFound: true);
         m_Gameplay_Click = m_Gameplay.FindAction("Click", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
+        m_Gameplay_Mouse = m_Gameplay.FindAction("Mouse", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +271,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Unearth;
     private readonly InputAction m_Gameplay_Click;
     private readonly InputAction m_Gameplay_Pause;
+    private readonly InputAction m_Gameplay_Mouse;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -262,6 +283,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Unearth => m_Wrapper.m_Gameplay_Unearth;
         public InputAction @Click => m_Wrapper.m_Gameplay_Click;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
+        public InputAction @Mouse => m_Wrapper.m_Gameplay_Mouse;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -292,6 +314,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Mouse.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMouse;
+                @Mouse.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMouse;
+                @Mouse.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMouse;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -317,6 +342,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @Mouse.started += instance.OnMouse;
+                @Mouse.performed += instance.OnMouse;
+                @Mouse.canceled += instance.OnMouse;
             }
         }
     }
@@ -339,5 +367,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnUnearth(InputAction.CallbackContext context);
         void OnClick(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnMouse(InputAction.CallbackContext context);
     }
 }
