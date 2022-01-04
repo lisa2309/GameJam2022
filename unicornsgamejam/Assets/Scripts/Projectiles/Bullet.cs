@@ -20,6 +20,9 @@ public class Bullet : MonoBehaviour
     private float fallingGravityScale = 2f;
     public GameObject player;
 
+    [SerializeField]
+    private GameObject mushroom;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,8 +35,10 @@ public class Bullet : MonoBehaviour
         if ((stoppingLayers.value & (1 << collision.gameObject.layer)) > 0)
         {
             Debug.Log("Bullet X: " + transform.position.x + "Bullet Y: " + transform.position.y + "Bullet Z: " + transform.position.z);
+            //Instantiate(mushroom, player.transform.position, player.transform.rotation);
             player.transform.position = transform.position;
             Destroy(gameObject);
+            player.GetComponent<PlayerHealth>().LooseHealth(damage);
 
         }
         /*else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)

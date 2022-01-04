@@ -28,6 +28,9 @@ public class PlayerShoot : MonoBehaviour
     private Vector2 inputMouse;
     public GameObject player;
 
+    [SerializeField]
+    private GameObject mushroom;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -39,8 +42,6 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Mouse: " + inputMouse);
-        Debug.Log("Player: " + transform.position);
         Vector3 mousePos = inputMouse;
         Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
         mousePos.x = mousePos.x - shootPos.x;
@@ -82,6 +83,7 @@ public class PlayerShoot : MonoBehaviour
     private IEnumerator SpawnBullet()
     {
         Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
+        Instantiate(mushroom, transform.position, transform.rotation);
         yield return new WaitForSeconds(bulletSpawnInterval);
         if (shooting) StartCoroutine(SpawnBullet());
     }

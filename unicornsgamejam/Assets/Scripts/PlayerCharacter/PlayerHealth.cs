@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -16,13 +17,18 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    public void Update(){
+        Debug.Log(currentHealth);
+    }
+
     public void LooseHealth(int damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
             {
-            FindObjectOfType<LevelLoader>().RestartLevel();
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //FindObjectOfType<LevelLoader>().RestartLevel();
         }
         }
     }

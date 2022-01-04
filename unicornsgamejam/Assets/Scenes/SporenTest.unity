@@ -5184,6 +5184,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[206].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 3134688772915260923, guid: a964aa1509bd3124b87b41d7839cd5c9, type: 3}
+      propertyPath: m_ChunkCullingBounds.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3134688773216036553, guid: a964aa1509bd3124b87b41d7839cd5c9, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5667,6 +5671,10 @@ PrefabInstance:
     - target: {fileID: 1602059106433673436, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967957613212418655, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
+      propertyPath: maxHealth
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0265138671f2934288ad8ac7df15e82, type: 3}
