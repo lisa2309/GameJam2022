@@ -30,6 +30,11 @@ public class PlayerShoot : MonoBehaviour
 
     [SerializeField]
     private GameObject mushroom;
+    public GameObject point;
+    GameObject[] points;
+    public int numberOfPoints;
+    public float spaceBetweenPoints;
+    Vector2 direction;
 
     private void Awake()
     {
@@ -46,12 +51,18 @@ public class PlayerShoot : MonoBehaviour
         Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
         mousePos.x = mousePos.x - shootPos.x;
         mousePos.y = mousePos.y - shootPos.y;
+        direction = new Vector2(mousePos.x, mousePos.y);
         float shootAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         if(inputMouse.x < shootPoint.position.x)
         {
             shootPoint.rotation = Quaternion.Euler(new Vector3(180f, 0f, -shootAngle));
         } else {
             shootPoint.rotation = Quaternion.Euler(new Vector3(0f, 0f, shootAngle));
+        }
+
+        for(int i = 0; i< numberOfPoints; i++)
+        {
+            points[i].transform.position= PointPosition(i * spaceBetweenPoints);
         }
     }
 
@@ -60,6 +71,11 @@ public class PlayerShoot : MonoBehaviour
         animator = GetComponent<Animator>();
         movement = GetComponent<PlayerMovement>();
         player = GameObject.Find("PlayerCharacter");
+        points = new GameObject[numberOfPoints];
+        for(int i = 0; i< numberOfPoints; i++)
+        {
+            points[i] = Instantiate(point, shootPoint.position, Quaternion.identity);
+        }
     }
 
     private void StartShooting()
@@ -86,6 +102,12 @@ public class PlayerShoot : MonoBehaviour
         Instantiate(mushroom, transform.position, transform.rotation);
         yield return new WaitForSeconds(bulletSpawnInterval);
         if (shooting) StartCoroutine(SpawnBullet());
+    }
+
+    Vector2 PointPosition(float t)
+    {
+        Vector2 position = (Vector2)shootPoint.position + direction.normalized * bulletPrefab.GetComponent<Bullet>().velocity * t + 0.5f * Physics2D.gravity * (t * t);
+        return position;
     }
 
 

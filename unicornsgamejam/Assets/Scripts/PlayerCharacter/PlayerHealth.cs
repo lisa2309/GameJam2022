@@ -7,10 +7,11 @@ public class PlayerHealth : MonoBehaviour
 {
     //state
     private int currentHealth;
+    public ProgressBar Pb;
 
     //config
     [SerializeField]
-    private int maxHealth = 3;
+    public int maxHealth = 5;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void Update(){
+        Pb.BarValue = currentHealth;
         Debug.Log(currentHealth);
     }
 
