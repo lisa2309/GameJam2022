@@ -66,13 +66,12 @@ public class TileMapManager : MonoBehaviour
 
     private void changeTile(Vector2 position)
     {
-        Vector3Int gridPosition = map.WorldToCell(position);
-        TileBase tile = map.GetTile(gridPosition);
+        TileBase tile = getTileFromPosition(position);
         if (tile != null)
         {
             if (dataFromTiles[tile].isRootable)
             {
-                map.SetTile(gridPosition, mycelliumTile);
+                map.SetTile(map.WorldToCell(position), mycelliumTile);
             }
         }
     }
