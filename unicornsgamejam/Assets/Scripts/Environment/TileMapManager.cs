@@ -44,6 +44,28 @@ public class TileMapManager : MonoBehaviour
         return dataFromTiles[tile].movementMultiplicator;
     }
 
+    public bool isMycelliumInPosition(Vector2 position)
+    {
+        TileBase tile = getTileFromPosition(position);
+        if (tile == null)
+        {
+            return false;
+        }
+        return dataFromTiles[tile].isMycellium;
+    }
+
+    public bool isTileOnPosition(Vector2 position)
+    {
+        if (getTileFromPosition(position) == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     public void rootGround(Vector2 position)
     {
         changeTile(position);
