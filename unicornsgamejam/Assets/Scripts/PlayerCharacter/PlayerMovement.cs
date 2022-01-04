@@ -308,6 +308,8 @@ public class PlayerMovement : MonoBehaviour
     private void Burry(){
         if (grounded && !isBuried)
         {
+            rb.velocity = Vector2.zero;
+            animator.SetFloat("RunSpeed", 0);
             isBuried = true;
             rootGround(this.transform.position - new Vector3(0, 1, 0));
         }
