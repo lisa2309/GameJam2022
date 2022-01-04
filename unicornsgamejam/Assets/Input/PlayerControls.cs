@@ -19,7 +19,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
             ""id"": ""9c827a6c-c815-4ed6-b01d-d0a4da12eb3b"",
             ""actions"": [
                 {
-                    ""name"": ""Move"",
+                    ""name"": ""MoveHorizontal"",
                     ""type"": ""Value"",
                     ""id"": ""05a10494-915d-4947-9a73-e428f1ba8538"",
                     ""expectedControlType"": ""Button"",
@@ -81,17 +81,25 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MoveVertical"",
+                    ""type"": ""Value"",
+                    ""id"": ""1b7811c8-5728-4d3a-9c8f-65af718e32cb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""1D Axis"",
+                    ""name"": ""HorizontalAxis"",
                     ""id"": ""73a5efb6-6651-4990-83ed-3d671c0262f2"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Move"",
+                    ""action"": ""MoveHorizontal"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -102,7 +110,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
+                    ""action"": ""MoveHorizontal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -113,7 +121,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Move"",
+                    ""action"": ""MoveHorizontal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -193,6 +201,39 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Mouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""VerticalAxis"",
+                    ""id"": ""c406ae2b-459a-4cc7-9506-cacc8369e262"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveVertical"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""01f74de2-626a-4783-8152-166d1ad24fcc"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveVertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""671a9b13-1313-4360-b863-901223290a04"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveVertical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -207,7 +248,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
 }");
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
+        m_Gameplay_MoveHorizontal = m_Gameplay.FindAction("MoveHorizontal", throwIfNotFound: true);
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
         m_Gameplay_Bury = m_Gameplay.FindAction("Bury", throwIfNotFound: true);
@@ -215,6 +256,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Click = m_Gameplay.FindAction("Click", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_Mouse = m_Gameplay.FindAction("Mouse", throwIfNotFound: true);
+        m_Gameplay_MoveVertical = m_Gameplay.FindAction("MoveVertical", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -264,7 +306,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     // Gameplay
     private readonly InputActionMap m_Gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
-    private readonly InputAction m_Gameplay_Move;
+    private readonly InputAction m_Gameplay_MoveHorizontal;
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Shoot;
     private readonly InputAction m_Gameplay_Bury;
@@ -272,11 +314,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Click;
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_Mouse;
+    private readonly InputAction m_Gameplay_MoveVertical;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
         public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Gameplay_Move;
+        public InputAction @MoveHorizontal => m_Wrapper.m_Gameplay_MoveHorizontal;
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
         public InputAction @Bury => m_Wrapper.m_Gameplay_Bury;
@@ -284,6 +327,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Click => m_Wrapper.m_Gameplay_Click;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @Mouse => m_Wrapper.m_Gameplay_Mouse;
+        public InputAction @MoveVertical => m_Wrapper.m_Gameplay_MoveVertical;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -293,9 +337,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_GameplayActionsCallbackInterface != null)
             {
-                @Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                @MoveHorizontal.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveHorizontal;
+                @MoveHorizontal.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveHorizontal;
+                @MoveHorizontal.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveHorizontal;
                 @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
@@ -317,13 +361,16 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Mouse.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMouse;
                 @Mouse.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMouse;
                 @Mouse.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMouse;
+                @MoveVertical.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveVertical;
+                @MoveVertical.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveVertical;
+                @MoveVertical.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveVertical;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Move.started += instance.OnMove;
-                @Move.performed += instance.OnMove;
-                @Move.canceled += instance.OnMove;
+                @MoveHorizontal.started += instance.OnMoveHorizontal;
+                @MoveHorizontal.performed += instance.OnMoveHorizontal;
+                @MoveHorizontal.canceled += instance.OnMoveHorizontal;
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
@@ -345,6 +392,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Mouse.started += instance.OnMouse;
                 @Mouse.performed += instance.OnMouse;
                 @Mouse.canceled += instance.OnMouse;
+                @MoveVertical.started += instance.OnMoveVertical;
+                @MoveVertical.performed += instance.OnMoveVertical;
+                @MoveVertical.canceled += instance.OnMoveVertical;
             }
         }
     }
@@ -360,7 +410,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     }
     public interface IGameplayActions
     {
-        void OnMove(InputAction.CallbackContext context);
+        void OnMoveHorizontal(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnBury(InputAction.CallbackContext context);
@@ -368,5 +418,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnClick(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
+        void OnMoveVertical(InputAction.CallbackContext context);
     }
 }

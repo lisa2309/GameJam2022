@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     //state
     private float horizontalInput;
+    private float verticalInput;
     private bool grounded;
     private float earlyJumpTimer;
     private float rememberGroundedTimer;
@@ -20,11 +21,14 @@ public class PlayerMovement : MonoBehaviour
     private bool lowJump = false;
     private float runSpeedModifier = 1.0f;
     private bool isBuried = false;
+    private float undergroundMovementTimer;
 
     //config
     [Header("Run Parameters")]
     [SerializeField]
     private float runSpeed = 200.0f;
+    [SerializeField]
+    private int undergroundJumpDistance = 3;
 
     [Header("Jump Parameters")]
     [SerializeField]
@@ -51,8 +55,11 @@ public class PlayerMovement : MonoBehaviour
     {
         controls = new PlayerControls();
 
-        controls.Gameplay.Move.performed += context => horizontalInput = context.ReadValue<float>();
-        controls.Gameplay.Move.canceled += context => horizontalInput = 0.0f;
+        controls.Gameplay.MoveHorizontal.performed += context => horizontalInput = context.ReadValue<float>();
+        controls.Gameplay.MoveHorizontal.canceled += context => horizontalInput = 0.0f;
+
+        controls.Gameplay.MoveVertical.performed += context => verticalInput = context.ReadValue<float>();
+        controls.Gameplay.MoveVertical.canceled += context => verticalInput = 0.0f;
 
         controls.Gameplay.Jump.performed += context => SetEarlyJumpTimer();
         controls.Gameplay.Jump.canceled += context => CancelJump();
@@ -70,36 +77,157 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
 
         CalculateJumpParameters();
+        undergroundMovementTimer = 0;
     }
     private void FixedUpdate()
     {
         CheckGrounded();
         ApplyFallingGravityScale();
         UpdateTimers();
-
-        Run();
+        Debug.Log(undergroundMovementTimer);
+        if (!isBuried)
+        {
+            Run();
+        }
+        else
+        {
+            MoveUnderGround();
+        }        
         if (earlyJumpTimer > 0.0f && rememberGroundedTimer > 0.0f) Jump();
 
         Flip();
-
     }
 
     private void Run()
-    {  
+    {
         float horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime;
         rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
-
-        /*float horizontalVelocity = 0;
-
-        if (!isBuried)
-        {
-            horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime * mapManager.getMovementMultiplikator(transform.position - new Vector3(0, 1, 0));
-            rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
-        }*/
         
+        horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime * mapManager.getMovementMultiplikator(transform.position - new Vector3(0, 1, 0));
+        rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
         //animation
-            animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
+        animator.SetFloat("RunSpeed", Mathf.Abs(horizontalVelocity));
     }
+
+    private void MoveUnderGround()
+    {
+        Vector2 targetPosition = transform.position;
+        if (!(undergroundMovementTimer > 0f))
+        {
+            if (horizontalInput == 1)
+            {
+                targetPosition = getTargetPosition("right");
+            } 
+            else if (horizontalInput == -1)
+            {
+                targetPosition = getTargetPosition("left");
+            }
+            else if (verticalInput == -1)
+            {
+                targetPosition = getTargetPosition("down");
+            }
+            else if (verticalInput == 1)
+            {
+                targetPosition = getTargetPosition("up");
+            }
+            transform.position = targetPosition;
+        }
+    }
+
+    private Vector2 getTargetPosition(string direction)
+    {
+        undergroundMovementTimer = 0.2f;
+         var nextPosition = transform.position;       
+        switch (direction)
+        {
+            case "up":
+                for (int i = 1; i <= undergroundJumpDistance + 1; i++)
+                {
+                    nextPosition = nextPosition + new Vector3(0 , i);
+                    if(mapManager.isMycelliumInPosition(nextPosition))
+                    {
+                    Debug.Log("Position: " + nextPosition+ "Current: " + transform.position);
+
+                        if (!mapManager.isTileOnPosition(nextPosition) && i != 1)
+                        {
+                            return nextPosition;
+                        }
+                        else
+                        {
+                            return transform.position;
+                        }
+                    }
+                }
+                return transform.position;
+
+            case "down":
+                for (int i = 1; i <= undergroundJumpDistance + 1; i++)
+                {
+                    nextPosition += new Vector3(0 , -i);
+                    if(!mapManager.isMycelliumInPosition(nextPosition))
+                    {
+                    Debug.Log("Position: " + nextPosition+ "Current: " + transform.position);
+
+                        if (!mapManager.isTileOnPosition(nextPosition) && i != 1)
+                        {
+                            
+                            return nextPosition;
+                        }
+                        else
+                        {
+                            return transform.position;
+                        }
+                    }
+                }
+                return transform.position;
+
+            case "left":
+                for (int i = 1; i <= undergroundJumpDistance + 1; i++)
+                {
+                    Debug.Log(mapManager.isMycelliumInPosition(nextPosition));
+                    nextPosition = nextPosition + new Vector3(-i , 0);
+                    if(!mapManager.isMycelliumInPosition(nextPosition))
+                    {
+                    Debug.Log("Position: " + nextPosition+ "Current: " + transform.position);
+
+                        if (!mapManager.isTileOnPosition(nextPosition) && i != 1)
+                        {
+                            return nextPosition;
+                        }
+                        else
+                        {
+                            return transform.position;
+                        }
+                    }*/
+                }
+                return transform.position;
+
+            case "right":
+                for (int i = 1; i <= undergroundJumpDistance + 1; i++)
+                {
+                    nextPosition = nextPosition + new Vector3(i , 0);
+                    if(!mapManager.isMycelliumInPosition(nextPosition))
+                    {
+                    Debug.Log("Position: " + nextPosition+ "Current: " + transform.position);
+
+                        if (!mapManager.isTileOnPosition(nextPosition) && i != 1)
+                        {
+                            return nextPosition;
+                        }
+                        else
+                        {
+                            return transform.position;
+                        }
+                    }
+                }
+                return transform.position;
+
+            default:
+                return transform.position;
+        }
+        
+    }
+
     public void SetRunSpeedModifier(float modifier)
     {
         runSpeedModifier = modifier;
@@ -169,6 +297,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.gravityScale = lowJumpGravityScale;
             }
         }
+        if (undergroundMovementTimer > 0f) undergroundMovementTimer -= Time.fixedDeltaTime;
     }
     private void Flip()
     {
@@ -190,7 +319,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isBuried = false;
         }
-        
     }
 
     private void rootGround(Vector3 position)
