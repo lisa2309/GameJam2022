@@ -16,13 +16,14 @@ public class Bullet : MonoBehaviour
     private LayerMask stoppingLayers;
     [SerializeField]
     private LayerMask targetLayers;
-    [SerializeField]
-    private float fallingGravityScale = 2f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = velocity * transform.right;
+    }
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + new Vector2(transform.right.x, 0.0f) * velocity * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

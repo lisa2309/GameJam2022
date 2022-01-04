@@ -25,7 +25,6 @@ public class PlayerShoot : MonoBehaviour
     private GameObject bulletPrefab;
     [SerializeField]
     private Transform shootPoint;
-    private Vector2 inputMouse;
 
     private void Awake()
     {
@@ -33,24 +32,7 @@ public class PlayerShoot : MonoBehaviour
 
         controls.Gameplay.Shoot.performed += context => StartShooting();
         controls.Gameplay.Shoot.canceled += context => StopShooting();
-        controls.Gameplay.Mouse.performed += x => inputMouse = x.ReadValue<Vector2>();
     }
-
-    private void Update()
-    {
-        Vector3 mousePos = inputMouse;
-        Vector3 shootPos = Camera.main.WorldToScreenPoint(shootPoint.position);
-        mousePos.x = mousePos.x - shootPos.x;
-        mousePos.y = mousePos.y - shootPos.y;
-        float shootAngle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-        if(inputMouse.x < shootPoint.position.x)
-        {
-            shootPoint.rotation = Quaternion.Euler(new Vector3(180f, 0f, -shootAngle));
-        } else {
-            shootPoint.rotation = Quaternion.Euler(new Vector3(0f, 0f, shootAngle));
-        }
-    }
-
     private void Start()
     {
         animator = GetComponent<Animator>();
