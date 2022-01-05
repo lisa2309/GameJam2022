@@ -315,7 +315,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded && !isBuried)
         {
             rb.velocity = Vector2.zero;
-            animator.SetFloat("RunSpeed", 0);
+            //animator.SetFloat("RunSpeed", 0);
             isBuried = true;
             rootGround(this.transform.position - new Vector3(0, 1, 0));
             audiosource.PlayOneShot(diggingSound);
