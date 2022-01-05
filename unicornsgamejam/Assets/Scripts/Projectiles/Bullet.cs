@@ -41,12 +41,11 @@ public class Bullet : MonoBehaviour
             if (mapManager.tileIsRootable(transform.position - new Vector3(0, 1)))
             {
                 player.transform.position = transform.position;
-                
-                player.GetComponent<PlayerHealth>().LooseHealth(damage);
                 player.GetComponent<PlayerMovement>().isBuried = false;
                 player.GetComponent<PlayerMovement>().Burry();
             }
             Destroy(gameObject);
+            player.GetComponent<PlayerHealth>().LooseHealth(damage);
             
 
         }
