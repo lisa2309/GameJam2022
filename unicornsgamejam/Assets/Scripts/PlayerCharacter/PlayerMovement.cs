@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float jumpTimer;
     private bool lowJump = false;
     private float runSpeedModifier = 1.0f;
-    private bool isBuried = false;
+    public bool isBuried = false;
     private float undergroundMovementTimer;
 
     //sound
@@ -84,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        animator.SetBool("Burried", isBuried);
         CheckGrounded();
         ApplyFallingGravityScale();
         UpdateTimers();
@@ -311,7 +312,7 @@ public class PlayerMovement : MonoBehaviour
         else if (rb.velocity.x < 0.0f) transform.eulerAngles = new Vector3(0.0f, 180.0f, 0.0f);
     }
 
-    private void Burry(){
+    public void Burry(){
         if (grounded && !isBuried)
         {
             rb.velocity = Vector2.zero;
