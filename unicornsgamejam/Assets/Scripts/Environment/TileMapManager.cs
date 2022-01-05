@@ -130,4 +130,10 @@ public class TileMapManager : MonoBehaviour
         Vector3Int gridPosition = map.WorldToCell(position);
         return map.GetTile(gridPosition);
     }
+
+    public bool tileIsRootable(Vector2 position)
+    {
+        TileBase tile = getTileFromPosition(position);
+        return dataFromTiles[tile].isRootable;
+    }
 }
