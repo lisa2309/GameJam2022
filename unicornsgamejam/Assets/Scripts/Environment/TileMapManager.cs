@@ -134,6 +134,10 @@ public class TileMapManager : MonoBehaviour
     public bool tileIsRootable(Vector2 position)
     {
         TileBase tile = getTileFromPosition(position);
+        if (tile == null)
+        {
+            return false;
+        }
         return dataFromTiles[tile].isRootable;
     }
 }

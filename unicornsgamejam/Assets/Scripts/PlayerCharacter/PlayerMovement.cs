@@ -313,7 +313,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void Burry(){
-        if (grounded && !isBuried)
+        if (mapManager.tileIsRootable(transform.position - new Vector3(0, 1)) && !isBuried)
         {
             rb.velocity = Vector2.zero;
             //animator.SetFloat("RunSpeed", 0);

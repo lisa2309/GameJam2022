@@ -15,5 +15,5 @@ MonoBehaviour:
   tiles:
   - {fileID: 11400000, guid: 66336c866acf42a418866b8acb0a8984, type: 2}
   isMycellium: 1
-  isRootable: 0
+  isRootable: 1
   movementMultiplicator: 1

@@ -23,11 +23,13 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private GameObject mushroom;
 
+    private TileMapManager mapManager;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = velocity * transform.right;
         player = GameObject.Find("PlayerCharacter");
+        mapManager = FindObjectOfType<TileMapManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,11 +38,16 @@ public class Bullet : MonoBehaviour
         {
             Debug.Log("Bullet X: " + transform.position.x + "Bullet Y: " + transform.position.y + "Bullet Z: " + transform.position.z);
             //Instantiate(mushroom, player.transform.position, player.transform.rotation);
-            player.transform.position = transform.position;
+            if (mapManager.tileIsRootable(transform.position - new Vector3(0, 1)))
+            {
+                player.transform.position = transform.position;
+                
+                player.GetComponent<PlayerHealth>().LooseHealth(damage);
+                player.GetComponent<PlayerMovement>().isBuried = false;
+                player.GetComponent<PlayerMovement>().Burry();
+            }
             Destroy(gameObject);
-            player.GetComponent<PlayerHealth>().LooseHealth(damage);
-            player.GetComponent<PlayerMovement>().isBuried = false;
-            player.GetComponent<PlayerMovement>().Burry();
+            
 
         }
         /*else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
