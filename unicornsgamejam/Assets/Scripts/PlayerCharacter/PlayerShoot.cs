@@ -80,12 +80,14 @@ public class PlayerShoot : MonoBehaviour
 
     private void StartShooting()
     {
+        if(player.GetComponent<PlayerMovement>().isBuried == true){
         shooting = true;
         currentSpawnBulletInstance = StartCoroutine(SpawnBullet());
         movement.SetRunSpeedModifier(shootingRunModifier);
 
         //animation
         animator.SetBool("Shooting", true);
+        }
     }
     private void StopShooting()
     {
