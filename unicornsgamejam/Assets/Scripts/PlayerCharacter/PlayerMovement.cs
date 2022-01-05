@@ -86,9 +86,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Run()
     {
-        //float horizontalVelocity = horizontalInput * runSpeed * runSpeedModifier * Time.fixedDeltaTime;
-        //rb.velocity = new Vector2(horizontalVelocity, rb.velocity.y);
-
         float horizontalVelocity = 0;
 
         if (!isBuried)

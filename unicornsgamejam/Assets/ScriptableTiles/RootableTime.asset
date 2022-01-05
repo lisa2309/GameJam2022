@@ -16,4 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5d9e9860712277d4ea64df222987b4e0, type: 2}
   - {fileID: 11400000, guid: b3813a9383f10164f889cc40c2c2b71b, type: 2}
   isRootable: 1
-  movementMultiplicator: 0.1
+  isWin: 0
+  movementMultiplicator: 0.5

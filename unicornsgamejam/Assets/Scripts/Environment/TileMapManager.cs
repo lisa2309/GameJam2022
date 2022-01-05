@@ -24,7 +24,7 @@ public class TileMapManager : MonoBehaviour
             foreach (var tile in tileData.tiles)
             {
                 dataFromTiles.Add(tile, tileData);
-                print(tileData.isRootable);
+                //print(tileData.isRootable);
             }
         }
     }
@@ -40,20 +40,19 @@ public class TileMapManager : MonoBehaviour
         return dataFromTiles[tile].movementMultiplicator;
     }
 
-    public bool isRootedTileAround(Vector2 position)
+    public bool isRootedTileAround(Vector2 pos)
     {
-        bool result = false;
-        Vector3Int gridPosition = map.WorldToCell(position);
+        Vector3Int gridPos = map.WorldToCell(pos);
         TileBase tileToCheckVertical;
         TileBase tileToCheckHorizontal;
         for (int i = -1; i < 2; i+=2)
         {
-            tileToCheckVertical = map.GetTile(gridPosition + new Vector3Int(i, 0, 0));
-            tileToCheckHorizontal = map.GetTile(gridPosition + new Vector3Int(0, i, 0));
+            tileToCheckVertical = map.GetTile(gridPos + new Vector3Int(i, 0, 0));
+            tileToCheckHorizontal = map.GetTile(gridPos + new Vector3Int(0, i, 0));
             if (tileToCheckVertical == mycelliumTile || tileToCheckHorizontal == mycelliumTile)
                 return true;
         }
-        return result;
+        return false;
     }
 
     public void rootGround(Vector2 position)

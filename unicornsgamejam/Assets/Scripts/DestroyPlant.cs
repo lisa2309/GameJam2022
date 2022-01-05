@@ -15,21 +15,21 @@ public class DestroyPlant : MonoBehaviour
         manager = GameObject.Find("TileMapManager").GetComponent<TileMapManager>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         //Check if Rooted Tile is around
         if (manager.isRootedTileAround(transform.position))
             killPlant();
     }
 
-    IEnumerator FadeOut()
+    IEnumerator fadeOut()
     {
         for (float f = 1f; f >= fadeSpeed; f -= fadeSpeed)
         {
             Color c = renderer.color;
             c.a = f;
             renderer.color = c;
-            Debug.Log(f);
+            //Debug.Log(f);
             yield return new WaitForSeconds(fadeSpeed);
         }
         Destroy(gameObject);
@@ -38,6 +38,6 @@ public class DestroyPlant : MonoBehaviour
     public void killPlant()
     {
         //Debug.Log("I ran into you");
-        StartCoroutine("FadeOut");
+        StartCoroutine("fadeOut");
     }
 }
