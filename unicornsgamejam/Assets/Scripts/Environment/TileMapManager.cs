@@ -14,7 +14,7 @@ public class TileMapManager : MonoBehaviour
     [SerializeField]
     private TileBase mycelliumTile;
     private Dictionary<TileBase, TileData> dataFromTiles;
-    
+
     private void Awake()
     {
         dataFromTiles = new Dictionary<TileBase, TileData>();
@@ -24,17 +24,13 @@ public class TileMapManager : MonoBehaviour
             foreach (var tile in tileData.tiles)
             {
                 dataFromTiles.Add(tile, tileData);
-                print(tileData.isRootable);
+                //print(tileData.isRootable);
             }
         }
     }
 
-    private void Update()
+    public float getMovementMultiplikator(Vector2 position)
     {
-        
-    }
-
-    public float getMovementMultiplikator(Vector2 position){
         Vector3Int gridPosition = map.WorldToCell(position);
         TileBase tile = map.GetTile(gridPosition);
         if (tile == null)
@@ -42,6 +38,21 @@ public class TileMapManager : MonoBehaviour
             return 1f;
         }
         return dataFromTiles[tile].movementMultiplicator;
+    }
+
+    public bool isRootedTileAround(Vector2 pos)
+    {
+        Vector3Int gridPos = map.WorldToCell(pos);
+        TileBase tileToCheckVertical;
+        TileBase tileToCheckHorizontal;
+        for (int i = -1; i < 2; i+=2)
+        {
+            tileToCheckVertical = map.GetTile(gridPos + new Vector3Int(i, 0, 0));
+            tileToCheckHorizontal = map.GetTile(gridPos + new Vector3Int(0, i, 0));
+            if (tileToCheckVertical == mycelliumTile || tileToCheckHorizontal == mycelliumTile)
+                return true;
+        }
+        return false;
     }
 
     public bool isMycelliumInPosition(Vector2 position)
