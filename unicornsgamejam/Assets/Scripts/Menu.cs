@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -47,6 +48,11 @@ public class Menu : MonoBehaviour
     public void QuitGame(){
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnEnable()
