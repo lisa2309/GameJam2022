@@ -31,6 +31,6 @@ public class GameManager : MonoBehaviour
 
     private void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
