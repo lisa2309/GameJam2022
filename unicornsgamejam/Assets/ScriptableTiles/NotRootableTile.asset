@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles:
   - {fileID: 11400000, guid: cca4d872bbf138a42bf3a3d0e52f9e24, type: 2}
-  wasUpdatedThisFrame: 0
+  - {fileID: 11400000, guid: 3070ed942476c974b8605dfe66d5bf20, type: 2}
+  - {fileID: 11400000, guid: d4a3eef5d1b39954bba5b117b72e0380, type: 2}
+  - {fileID: 11400000, guid: 8ed4754fb3155794abec3ac7317a5dd7, type: 2}
+  isMycellium: 0
   isRootable: 0
   movementMultiplicator: 1

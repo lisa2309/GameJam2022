@@ -768,7 +768,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Vielen Dank\n\nZum Beenden halte \"h\" gedr\xFCckt und klicke auf Quit"
+  m_Text: "Vielen Dank\n\nZum Beenden halte Escape gedr\xFCckt und klicke auf Quit"
 --- !u!222 &2128207651
 CanvasRenderer:
   m_ObjectHideFlags: 0
