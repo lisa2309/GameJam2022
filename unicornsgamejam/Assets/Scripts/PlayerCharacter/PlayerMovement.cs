@@ -23,6 +23,11 @@ public class PlayerMovement : MonoBehaviour
     public bool isBuried = false;
     private float undergroundMovementTimer;
 
+    //sound
+    [Header("Run Parameters")]
+    public AudioClip diggingSound;
+    public AudioClip undergroundMovementSound;
+    private AudioSource audiosource;
     //config
     [Header("Run Parameters")]
     [SerializeField]
@@ -67,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         controls.Gameplay.Bury.performed += context => Burry();
 
         mapManager = FindObjectOfType<TileMapManager>();
-
+        audiosource = FindObjectOfType<AudioSource>();
     }
     private void Start()
     {
@@ -149,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
 
                         if (!mapManager.isTileOnPosition(nextPosition) && i != 1)
                         {
+                            audiosource.PlayOneShot(undergroundMovementSound);
                             return nextPosition;
                         }
                         else
@@ -169,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
 
                         if (!mapManager.isTileOnPosition(nextPosition) && i != 1)
                         {
-                            
+                            audiosource.PlayOneShot(undergroundMovementSound);
                             return nextPosition;
                         }
                         else
@@ -191,6 +197,7 @@ public class PlayerMovement : MonoBehaviour
 
                         if (!mapManager.isTileOnPosition(nextPosition) && i != 1)
                         {
+                            audiosource.PlayOneShot(undergroundMovementSound);
                             return nextPosition;
                         }
                         else
@@ -211,6 +218,7 @@ public class PlayerMovement : MonoBehaviour
 
                         if (!mapManager.isTileOnPosition(nextPosition) && i != 1)
                         {
+                            audiosource.PlayOneShot(undergroundMovementSound);
                             return nextPosition;
                         }
                         else
@@ -309,13 +317,15 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
             //animator.SetFloat("RunSpeed", 0);
-            animator.SetBool("Bury", true);
             isBuried = true;
             rootGround(this.transform.position - new Vector3(0, 1, 0));
+            audiosource.PlayOneShot(diggingSound);
         }
         else
         {
             isBuried = false;
+            audiosource.PlayOneShot(diggingSound);
+
         }
         
     }
