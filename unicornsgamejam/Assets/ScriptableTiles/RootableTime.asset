@@ -19,4 +19,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d77341525fd5e78439b694b80635bdb3, type: 2}
   isMycellium: 0
   isRootable: 1
-  movementMultiplicator: 0.1
+  isWin: 0
+  movementMultiplicator: 0.5
