@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private bool gameEnded = false;
-    private float delay = 1.2f;
+    private float delay = 1.0f;
     public GameObject completeLvlUI;
 
     public void endGame ()

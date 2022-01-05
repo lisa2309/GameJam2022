@@ -13,9 +13,10 @@ public class WinLevel : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Triggered");
-        renderer.sprite = door_open;
-        gameManager.levelWon();
+        if (collision.gameObject.name == "PlayerCharacter") { 
+            renderer.sprite = door_open;
+            gameManager.levelWon();
+        }
     }
 
 }

@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Update(){
         Pb.BarValue = currentHealth;
-        Debug.Log(currentHealth);
+        //Debug.Log(currentHealth);
     }
 
     public void LooseHealth(int damage)
