@@ -43,15 +43,9 @@ public class TileMapManager : MonoBehaviour
     public bool isRootedTileAround(Vector2 pos)
     {
         Vector3Int gridPos = map.WorldToCell(pos);
-        TileBase tileToCheckVertical;
-        TileBase tileToCheckHorizontal;
-        for (int i = -1; i < 2; i+=2)
-        {
-            tileToCheckVertical = map.GetTile(gridPos + new Vector3Int(i, 0, 0));
-            tileToCheckHorizontal = map.GetTile(gridPos + new Vector3Int(0, i, 0));
-            if (tileToCheckVertical == mycelliumTile || tileToCheckHorizontal == mycelliumTile)
-                return true;
-        }
+        TileBase tile = map.GetTile(gridPos);
+        if (tile == mycelliumTile)
+                return true;  
         return false;
     }
 

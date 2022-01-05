@@ -18,18 +18,26 @@ public class DestroyPlant : MonoBehaviour
     private void FixedUpdate()
     {
         //Check if Rooted Tile is around
-        if (manager.isRootedTileAround(transform.position))
+        if (manager.isRootedTileAround(transform.GetChild(0).transform.position))
             killPlant();
     }
 
     IEnumerator fadeOut()
     {
-        for (float f = 1f; f >= fadeSpeed; f -= fadeSpeed)
+        Color c = renderer.color;
+        while (c.r < 1 || c.b < 1)
         {
-            Color c = renderer.color;
+            c.r += 0.15f;
+            c.b += 0.15f;
+            renderer.color = c;
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        for (float f = 1f; f >= fadeSpeed; f -= fadeSpeed)
+        {           
+            c = renderer.color;
             c.a = f;
             renderer.color = c;
-            //Debug.Log(f);
             yield return new WaitForSeconds(fadeSpeed);
         }
         Destroy(gameObject);
