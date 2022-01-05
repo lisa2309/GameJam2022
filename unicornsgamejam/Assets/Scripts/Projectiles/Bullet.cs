@@ -39,6 +39,8 @@ public class Bullet : MonoBehaviour
             player.transform.position = transform.position;
             Destroy(gameObject);
             player.GetComponent<PlayerHealth>().LooseHealth(damage);
+            player.GetComponent<PlayerMovement>().isBuried = false;
+            player.GetComponent<PlayerMovement>().Burry();
 
         }
         /*else if ((targetLayers.value & (1 << collision.gameObject.layer)) > 0)
