@@ -55,6 +55,11 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     private void OnEnable()
     {
         controls.Enable();
