@@ -110,7 +110,7 @@
                 {
                     "name": "",
                     "id": "43f36691-ce2c-4c2a-bd3e-923e0de1a640",
-                    "path": "<Mouse>/press",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
