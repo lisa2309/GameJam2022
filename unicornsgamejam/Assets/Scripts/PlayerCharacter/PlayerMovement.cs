@@ -66,8 +66,6 @@ public class PlayerMovement : MonoBehaviour
 
         controls.Gameplay.Bury.performed += context => Burry();
 
-        controls.Gameplay.Unearth.performed += context => Unearth();
-
         mapManager = FindObjectOfType<TileMapManager>();
 
     }
@@ -313,14 +311,11 @@ public class PlayerMovement : MonoBehaviour
             isBuried = true;
             rootGround(this.transform.position - new Vector3(0, 1, 0));
         }
-        
-    }
-
-    private void Unearth(){
-        if (isBuried)
+        else
         {
             isBuried = false;
         }
+        
     }
 
     private void rootGround(Vector3 position)

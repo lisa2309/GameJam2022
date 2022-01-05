@@ -38,14 +38,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Unearth",
-                    "type": "Button",
-                    "id": "e98860ef-f4b6-479e-abc2-34b35cf1bd10",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "3fdf5295-c3c7-4cdc-a3f4-fb39beaa37fc",
@@ -134,17 +126,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Bury",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3f6890ee-0b31-48ec-96b1-575ea421ecfb",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Unearth",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

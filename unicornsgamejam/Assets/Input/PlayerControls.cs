@@ -51,14 +51,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Unearth"",
-                    ""type"": ""Button"",
-                    ""id"": ""e98860ef-f4b6-479e-abc2-34b35cf1bd10"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""3fdf5295-c3c7-4cdc-a3f4-fb39beaa37fc"",
@@ -152,17 +144,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3f6890ee-0b31-48ec-96b1-575ea421ecfb"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Unearth"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8bb8c274-e870-4073-9c78-ed63dcc4815a"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -233,7 +214,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
         m_Gameplay_Bury = m_Gameplay.FindAction("Bury", throwIfNotFound: true);
-        m_Gameplay_Unearth = m_Gameplay.FindAction("Unearth", throwIfNotFound: true);
         m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         m_Gameplay_Mouse = m_Gameplay.FindAction("Mouse", throwIfNotFound: true);
         m_Gameplay_MoveVertical = m_Gameplay.FindAction("MoveVertical", throwIfNotFound: true);
@@ -290,7 +270,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Shoot;
     private readonly InputAction m_Gameplay_Bury;
-    private readonly InputAction m_Gameplay_Unearth;
     private readonly InputAction m_Gameplay_Pause;
     private readonly InputAction m_Gameplay_Mouse;
     private readonly InputAction m_Gameplay_MoveVertical;
@@ -302,7 +281,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
         public InputAction @Bury => m_Wrapper.m_Gameplay_Bury;
-        public InputAction @Unearth => m_Wrapper.m_Gameplay_Unearth;
         public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputAction @Mouse => m_Wrapper.m_Gameplay_Mouse;
         public InputAction @MoveVertical => m_Wrapper.m_Gameplay_MoveVertical;
@@ -327,9 +305,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Bury.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBury;
                 @Bury.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBury;
                 @Bury.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnBury;
-                @Unearth.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUnearth;
-                @Unearth.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUnearth;
-                @Unearth.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnUnearth;
                 @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
@@ -355,9 +330,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Bury.started += instance.OnBury;
                 @Bury.performed += instance.OnBury;
                 @Bury.canceled += instance.OnBury;
-                @Unearth.started += instance.OnUnearth;
-                @Unearth.performed += instance.OnUnearth;
-                @Unearth.canceled += instance.OnUnearth;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -386,7 +358,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnBury(InputAction.CallbackContext context);
-        void OnUnearth(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnMouse(InputAction.CallbackContext context);
         void OnMoveVertical(InputAction.CallbackContext context);
