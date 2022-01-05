@@ -58,7 +58,7 @@ public class Menu : MonoBehaviour
     public void BackToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
-    }
+    }    
 
     private void OnEnable()
     {
